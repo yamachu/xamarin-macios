@@ -467,11 +467,12 @@ ifdef ENABLE_DOTNET
 MSBUILD_PRODUCTS += $(DOTNET_TARGETS)
 
 ifdef ENABLE_DOTNET_WINDOWS
-DOTNET_IOS_WINDOWS_OUTPUT_FILES =                                          \ 
-	$(foreach dll,$(IOS_WINDOWS_TASK_ASSEMBLIES),$(dll).dll $(dll).pdb)    \
-	$(foreach dll,$(IOS_WINDOWS_DEPENDENCIES),$(dll).dll $(dll).pdb)    \
-	$(foreach dll,$(IOS_WINDOWS_MOBILEDEVICE_TOOLS),$(dll).dll $(dll).exe $(dll).pdb)    \
-	Broker.zip Build.zip
+DOTNET_IOS_WINDOWS_OUTPUT_FILES =                                \
+	$(foreach dll,$(IOS_WINDOWS_TASK_ASSEMBLIES),$(dll).*)       \
+	$(foreach dll,$(IOS_WINDOWS_DEPENDENCIES),$(dll).*)          \
+	$(foreach dll,$(IOS_WINDOWS_MOBILEDEVICE_TOOLS),$(dll).*)    \
+	Broker.zip                                                   \
+	Build.zip
 DOTNET_IOS_WINDOWS_FILES = $(IOS_WINDOWS_TARGETS) $(foreach file,$(DOTNET_IOS_WINDOWS_OUTPUT_FILES),Xamarin.iOS.Tasks.Windows/bin/$(CONFIG)/$(TARGETFRAMEWORK)/$(file))
 
 # Ensures Xamarin.iOS.Tasks.Windows is built and copies the output files to the Sdk Windows pack

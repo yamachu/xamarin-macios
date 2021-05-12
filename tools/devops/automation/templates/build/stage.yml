@@ -33,6 +33,8 @@ jobs:
 
   variables:
     isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+    isScheduled: $[eq(variables['Build.Reason'], 'Schedule')]
+    isNotScheduled: $[ne(variables['Build.Reason'], 'Schedule')]
 
   steps:
   - template: configure.yml
@@ -148,7 +150,7 @@ jobs:
   displayName: 'Upload xml to vsts'
   timeoutInMinutes: 1000
   dependsOn:  build # can start as soon as the tests are done
-  condition: and(succeededOrFailed() , contains (dependencies.build.outputs['runTests.TESTS_RAN'], 'True')) # only run when we did run the tests
+  condition: and(succeededOrFailed() , contains (dependencies.build.outputs['runTests.TESTS_RAN'], 'True'), isNotScheduled) # only run when we did run the tests
 
   pool:
     vmImage: 'windows-latest'

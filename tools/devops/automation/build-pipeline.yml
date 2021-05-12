@@ -224,8 +224,8 @@ stages:
     - template: templates/build/stage.yml
       parameters:
         vsdropsPrefix: ${{ variables.vsdropsPrefix }}
-        runTests: ${{ and(parameters.runTests, ne(variables['Build.Reason'], 'Schedule'))}}
-        runDeviceTests: ${{ and(parameters.runDeviceTests, ne(variables['Build.Reason'], 'Schedule')) }}
+        runTests: ${{ and(parameters.runTests, ne(variables['Build.Reason'], 'Manual'))}}
+        runDeviceTests: ${{ and(parameters.runDeviceTests, ne(variables['Build.Reason'], 'Manual')) }}
         keyringPass: $(xma-password)
         gitHubToken: ${{ variables['GitHub.Token'] }}
         xqaCertPass: $(xqa--certificates--password)
